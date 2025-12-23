@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.env
+*.pkl
+*.h5
+*.joblib
+
+# Node
+node_modules/
+.next/
+.vercel
+
+# Data
+*.csv
+!ml/data/sample/*.csv
+
+# IDE
+.idea/
+.vscode/
+*.swp
