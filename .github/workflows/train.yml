@@ -1,0 +1,57 @@
+name: Daily Model Training
+
+on:
+  schedule:
+    # Run at 6:00 AM UTC (after market close)
+    - cron: "0 6 * * *"
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r ml/requirements.txt
+          pip install -r backend/requirements.txt
+
+      - name: Collect data
+        run: |
+          cd ml
+          python -c "from data_collection import fetch_all_data; fetch_all_data()"
+
+      - name: Engineer features
+        run: |
+          cd ml
+          python -c "from feature_engineering import create_features; create_features()"
+
+      - name: Train models
+        run: |
+          cd ml
+          python -c "from train_models import train_all_models; from config import HORIZONS; [train_all_models(h) for h in HORIZONS]"
+
+      - name: Run backtests
+        run: |
+          cd ml
+          python -c "from backtest import run_all_backtests; run_all_backtests()"
+
+      - name: Commit updated models
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: update models [skip ci]"
+          file_pattern: "backend/models/*.json backend/models/*.csv"
+          commit_user_name: "GitHub Actions"
+          commit_user_email: "actions@github.com"
