@@ -76,7 +76,7 @@ export function FeatureImportance({ features, horizon }: FeatureImportanceProps)
                 boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
                 padding: '12px'
               }}
-              formatter={(value: number) => [value.toFixed(4), 'Importance Score']}
+              formatter={(value) => [(value as number).toFixed(4), 'Importance Score']}
               labelFormatter={(_, payload) => {
                 const item = payload?.[0]?.payload;
                 return item ? `${item.fullName}\n${item.explanation}` : '';
