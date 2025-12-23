@@ -15,6 +15,7 @@ node_modules/
 # Data
 *.csv
 !ml/data/sample/*.csv
+!backend/models/*.csv
 
 # IDE
 .idea/
