@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://sp500-forecasting-production.up.railway.app";
 
 export async function fetchMetrics() {
   const res = await fetch(`${API_URL}/api/metrics`, { cache: 'no-store' });
