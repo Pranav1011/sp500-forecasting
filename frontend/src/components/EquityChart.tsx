@@ -97,8 +97,8 @@ export function EquityChart({ data, horizon }: EquityChartProps) {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
               }}
               labelStyle={{ color: '#888', marginBottom: '8px' }}
-              formatter={(value: number, name: string) => [
-                `${formatValue(value)}x`,
+              formatter={(value, name) => [
+                `${formatValue(value as number)}x`,
                 name === 'cumulative_strategy' ? 'Strategy' : 'Benchmark (S&P 500)'
               ]}
             />
