@@ -8,7 +8,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 import joblib
 import json
-from .config import PROCESSED_DIR, MODELS_DIR, HORIZONS
+try:
+    from .config import PROCESSED_DIR, MODELS_DIR, HORIZONS
+except ImportError:
+    from config import PROCESSED_DIR, MODELS_DIR, HORIZONS
 
 def get_feature_cols(df: pd.DataFrame) -> list:
     """Get feature column names (exclude targets)."""

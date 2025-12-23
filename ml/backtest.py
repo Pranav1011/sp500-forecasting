@@ -2,7 +2,10 @@ import pandas as pd
 import numpy as np
 import joblib
 import json
-from .config import PROCESSED_DIR, MODELS_DIR, HORIZONS
+try:
+    from .config import PROCESSED_DIR, MODELS_DIR, HORIZONS
+except ImportError:
+    from config import PROCESSED_DIR, MODELS_DIR, HORIZONS
 
 def calculate_sharpe(returns: pd.Series, risk_free: float = 0.02) -> float:
     """Calculate annualized Sharpe ratio."""

@@ -1,0 +1,14 @@
+{
+  "horizon": 5,
+  "test_start": "2022-11-14",
+  "test_end": "2025-11-21",
+  "total_return": -0.6696092614115269,
+  "benchmark_return": 13.735869054222354,
+  "sharpe_ratio": -1.0551334974212778,
+  "sortino_ratio": -1.7352180218308884,
+  "max_drawdown": -0.9128344554764428,
+  "volatility": 0.31919946172842534,
+  "win_rate": 0.4220055710306407,
+  "num_trades": 719,
+  "directional_accuracy": 0.43610013175230566
+}

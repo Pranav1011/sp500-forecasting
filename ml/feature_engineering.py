@@ -4,7 +4,10 @@ from ta import add_all_ta_features
 from ta.volatility import BollingerBands, AverageTrueRange
 from ta.momentum import RSIIndicator, StochasticOscillator
 from ta.trend import MACD, SMAIndicator, EMAIndicator
-from .config import PROCESSED_DIR, HORIZONS, RAW_DIR
+try:
+    from .config import PROCESSED_DIR, HORIZONS, RAW_DIR
+except ImportError:
+    from config import PROCESSED_DIR, HORIZONS, RAW_DIR
 
 def add_returns(df: pd.DataFrame, col: str = "sp500_close") -> pd.DataFrame:
     """Add return features for multiple horizons."""
