@@ -15,6 +15,13 @@ interface PredictionPanelProps {
   predictions: Record<string, PredictionData | null>;
 }
 
+// Tooltip explanations
+const TOOLTIPS = {
+  directional_accuracy: "Percentage of times the model correctly predicted whether the market would go up or down. >50% means better than random.",
+  sharpe_ratio: "Risk-adjusted return. Measures excess return per unit of risk. >1 is good, >2 is excellent, <0 means losing money.",
+  total_return: "Cumulative return of the trading strategy during the backtest period. Positive = profit, negative = loss.",
+};
+
 export function PredictionPanel({ predictions }: PredictionPanelProps) {
   const horizons = ['1d', '5d', '20d'];
 
@@ -75,6 +82,7 @@ export function PredictionPanel({ predictions }: PredictionPanelProps) {
                     value={formatPercent(data.directional_accuracy)}
                     trend={data.directional_accuracy > 0.5 ? 'up' : 'down'}
                     size="lg"
+                    tooltip={TOOLTIPS.directional_accuracy}
                   />
                   <div className="grid grid-cols-2 gap-3 pt-2 border-t border-zinc-700/50">
                     <MetricBadge
@@ -82,12 +90,14 @@ export function PredictionPanel({ predictions }: PredictionPanelProps) {
                       value={formatNumber(data.sharpe_ratio)}
                       trend={getTrend(data.sharpe_ratio)}
                       size="md"
+                      tooltip={TOOLTIPS.sharpe_ratio}
                     />
                     <MetricBadge
                       label="Total Return"
                       value={formatPercent(data.total_return)}
                       trend={getTrend(data.total_return)}
                       size="md"
+                      tooltip={TOOLTIPS.total_return}
                     />
                   </div>
                 </div>

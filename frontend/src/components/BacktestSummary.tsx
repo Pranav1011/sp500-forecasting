@@ -2,7 +2,7 @@
 
 import { Card } from "./ui/Card";
 import { MetricBadge } from "./ui/MetricBadge";
-import { TrendingUp, TrendingDown, Activity } from "lucide-react";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 interface BacktestData {
   sharpe_ratio: number;
@@ -18,6 +18,16 @@ interface BacktestData {
 interface BacktestSummaryProps {
   data: Record<string, BacktestData>;
 }
+
+// Tooltip explanations for backtest metrics
+const TOOLTIPS = {
+  sharpe: "Risk-adjusted return metric. Measures excess return per unit of volatility. >1 is good, >2 is excellent.",
+  sortino: "Like Sharpe but only penalizes downside volatility. Better for strategies with asymmetric returns.",
+  max_dd: "Maximum Drawdown - the largest peak-to-trough decline. Shows worst-case loss scenario.",
+  win_rate: "Percentage of trades that were profitable. >50% means more winners than losers.",
+  return: "Total cumulative return of the strategy during the backtest period.",
+  trades: "Number of trading signals generated during the backtest period.",
+};
 
 export function BacktestSummary({ data }: BacktestSummaryProps) {
   const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
@@ -55,12 +65,12 @@ export function BacktestSummary({ data }: BacktestSummaryProps) {
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-3">
-                <MetricBadge label="Sharpe" value={formatNumber(metrics.sharpe_ratio)} trend={getTrend(metrics.sharpe_ratio)} />
-                <MetricBadge label="Sortino" value={formatNumber(metrics.sortino_ratio)} trend={getTrend(metrics.sortino_ratio)} />
-                <MetricBadge label="Max DD" value={formatPercent(metrics.max_drawdown)} trend="down" />
-                <MetricBadge label="Win Rate" value={formatPercent(metrics.win_rate)} trend={metrics.win_rate > 0.5 ? 'up' : 'down'} />
-                <MetricBadge label="Return" value={formatPercent(metrics.total_return)} trend={getTrend(metrics.total_return)} />
-                <MetricBadge label="Trades" value={metrics.num_trades.toString()} trend="neutral" />
+                <MetricBadge label="Sharpe" value={formatNumber(metrics.sharpe_ratio)} trend={getTrend(metrics.sharpe_ratio)} tooltip={TOOLTIPS.sharpe} />
+                <MetricBadge label="Sortino" value={formatNumber(metrics.sortino_ratio)} trend={getTrend(metrics.sortino_ratio)} tooltip={TOOLTIPS.sortino} />
+                <MetricBadge label="Max DD" value={formatPercent(metrics.max_drawdown)} trend="down" tooltip={TOOLTIPS.max_dd} />
+                <MetricBadge label="Win Rate" value={formatPercent(metrics.win_rate)} trend={metrics.win_rate > 0.5 ? 'up' : 'down'} tooltip={TOOLTIPS.win_rate} />
+                <MetricBadge label="Return" value={formatPercent(metrics.total_return)} trend={getTrend(metrics.total_return)} tooltip={TOOLTIPS.return} />
+                <MetricBadge label="Trades" value={metrics.num_trades.toString()} trend="neutral" tooltip={TOOLTIPS.trades} />
               </div>
             </div>
           );

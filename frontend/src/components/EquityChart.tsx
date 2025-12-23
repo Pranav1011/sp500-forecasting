@@ -1,7 +1,8 @@
 'use client';
 
 import { Card } from "./ui/Card";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Area, ComposedChart } from "recharts";
+import { XAxis, YAxis, Tooltip, ResponsiveContainer, Area, ComposedChart } from "recharts";
+import { Info } from "lucide-react";
 
 interface EquityData {
   Date?: string;
@@ -26,22 +27,41 @@ export function EquityChart({ data, horizon }: EquityChartProps) {
   // Calculate final values for display
   const finalStrategy = data.length > 0 ? data[data.length - 1].cumulative_strategy : 0;
   const finalBenchmark = data.length > 0 ? data[data.length - 1].cumulative_benchmark : 0;
+  const outperformance = finalStrategy - finalBenchmark;
 
   return (
     <Card title={`Equity Curve - ${horizon}D Horizon`} className="col-span-2" accent="blue">
-      <div className="flex items-center gap-6 mb-4 text-xs">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-0.5 bg-orange-500"></div>
-          <span className="text-gray-400">Strategy</span>
-          <span className="font-mono text-orange-400">{formatValue(finalStrategy)}</span>
+      {/* Explanation banner */}
+      <div className="flex items-start gap-2 mb-4 p-3 bg-zinc-800/50 rounded-lg border border-zinc-700/50">
+        <Info className="w-4 h-4 text-blue-400 mt-0.5 flex-shrink-0" />
+        <p className="text-xs text-gray-400 leading-relaxed">
+          <span className="text-gray-300 font-medium">Equity curve</span> shows how $1 invested would have grown over time.
+          <span className="text-orange-400"> Orange line</span> = our ML strategy.
+          <span className="text-blue-400"> Blue line</span> = buy-and-hold S&P 500.
+          Values are multipliers (e.g., 2.0 = doubled your money).
+        </p>
+      </div>
+
+      {/* Legend with values */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-6 text-xs">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-0.5 bg-orange-500"></div>
+            <span className="text-gray-400">Strategy</span>
+            <span className="font-mono text-orange-400">{formatValue(finalStrategy)}x</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-0.5 bg-blue-500"></div>
+            <span className="text-gray-400">Benchmark (S&P 500)</span>
+            <span className="font-mono text-blue-400">{formatValue(finalBenchmark)}x</span>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-0.5 bg-blue-500"></div>
-          <span className="text-gray-400">Benchmark</span>
-          <span className="font-mono text-blue-400">{formatValue(finalBenchmark)}</span>
+        <div className={`text-xs font-mono px-2 py-1 rounded ${outperformance > 0 ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+          {outperformance > 0 ? '+' : ''}{formatValue(outperformance)} vs benchmark
         </div>
       </div>
-      <div className="h-64">
+
+      <div className="h-56">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
             <defs>
@@ -65,7 +85,7 @@ export function EquityChart({ data, horizon }: EquityChartProps) {
             <YAxis
               stroke="#444"
               tick={{ fill: '#666', fontSize: 10 }}
-              tickFormatter={formatValue}
+              tickFormatter={(v) => `${v}x`}
               domain={['auto', 'auto']}
               axisLine={{ stroke: '#333' }}
             />
@@ -78,8 +98,8 @@ export function EquityChart({ data, horizon }: EquityChartProps) {
               }}
               labelStyle={{ color: '#888', marginBottom: '8px' }}
               formatter={(value: number, name: string) => [
-                formatValue(value),
-                name === 'cumulative_strategy' ? 'Strategy' : 'Benchmark'
+                `${formatValue(value)}x`,
+                name === 'cumulative_strategy' ? 'Strategy' : 'Benchmark (S&P 500)'
               ]}
             />
             <Area
