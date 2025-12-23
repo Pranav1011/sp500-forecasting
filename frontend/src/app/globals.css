@@ -8,8 +8,6 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-bloomberg-orange: #ff6600;
   --color-bloomberg-black: #000000;
   --color-bloomberg-dark: #1a1a1a;
@@ -19,24 +17,77 @@
 body {
   background: #000000;
   color: #ffffff;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 }
 
 /* Bloomberg-style scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #0a0a0a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 4px;
+  background: #333;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: #444;
+}
+
+/* Glow effects */
+.glow-green {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.glow-red {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.glow-orange {
+  text-shadow: 0 0 10px rgba(255, 102, 0, 0.5);
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+  border-color: #ff6600;
+  box-shadow: 0 0 20px rgba(255, 102, 0, 0.1);
+}
+
+/* Pulse animation for live indicator */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+  }
+}
+
+.live-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #ff6600, #ff9500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Data grid lines */
+.data-grid {
+  background-image:
+    linear-gradient(rgba(255, 102, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 102, 0, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
 }

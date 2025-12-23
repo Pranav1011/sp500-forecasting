@@ -4,7 +4,7 @@ import { EquityChart } from "@/components/EquityChart";
 import { MetricsTable } from "@/components/MetricsTable";
 import { BacktestSummary } from "@/components/BacktestSummary";
 import { FeatureImportance } from "@/components/FeatureImportance";
-import { Activity, TrendingUp, BarChart3 } from "lucide-react";
+import { Activity, TrendingUp, BarChart3, Cpu, Database, GitBranch } from "lucide-react";
 
 async function getData() {
   try {
@@ -41,21 +41,35 @@ export default async function Home() {
   const hasData = Object.keys(predictions).length > 0;
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white data-grid">
       {/* Header */}
-      <header className="border-b border-zinc-800 px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Activity className="w-8 h-8 text-orange-500" />
-            <div>
-              <h1 className="text-xl font-bold text-white">S&P 500 Forecasting Platform</h1>
-              <p className="text-sm text-gray-500">Multi-horizon ML predictions • Ensemble models • Real-time backtesting</p>
+      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-zinc-800">
+        <div className="px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="p-2 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg">
+                <Activity className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-white">
+                  S&P 500 <span className="gradient-text">Forecasting Platform</span>
+                </h1>
+                <p className="text-xs text-gray-500 flex items-center gap-3 mt-0.5">
+                  <span className="flex items-center gap-1"><Cpu className="w-3 h-3" /> Ensemble ML</span>
+                  <span className="flex items-center gap-1"><Database className="w-3 h-3" /> 15+ Years Data</span>
+                  <span className="flex items-center gap-1"><GitBranch className="w-3 h-3" /> Walk-Forward Validation</span>
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2 text-sm">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              <span className="text-gray-400">Live</span>
+            <div className="flex items-center gap-6">
+              <div className="text-right">
+                <div className="text-xs text-gray-500">Last Updated</div>
+                <div className="text-sm font-mono text-gray-300">{new Date().toLocaleDateString()}</div>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-zinc-900 rounded-full border border-zinc-800">
+                <span className="w-2 h-2 bg-green-500 rounded-full live-pulse"></span>
+                <span className="text-xs text-gray-400 font-medium">Live</span>
+              </div>
             </div>
           </div>
         </div>
@@ -95,10 +109,25 @@ export default async function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-zinc-800 px-6 py-3 mt-auto">
-        <div className="flex items-center justify-between text-xs text-gray-600">
-          <span>S&P 500 Forecasting Platform • Built with XGBoost, Random Forest, Ridge Regression</span>
-          <span>Data updated daily via GitHub Actions</span>
+      <footer className="border-t border-zinc-800 bg-zinc-900/50 px-6 py-4 mt-8">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6 text-xs text-gray-500">
+            <span className="flex items-center gap-1.5">
+              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+              XGBoost
+            </span>
+            <span className="flex items-center gap-1.5">
+              <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+              Random Forest
+            </span>
+            <span className="flex items-center gap-1.5">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              Ridge Regression
+            </span>
+          </div>
+          <div className="text-xs text-gray-600">
+            Built with Next.js • FastAPI • scikit-learn
+          </div>
         </div>
       </footer>
     </main>
