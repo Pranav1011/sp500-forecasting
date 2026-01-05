@@ -4,15 +4,15 @@
     "directional_accuracy": 0.43285939968404424
   },
   "rf": {
-    "mae": 0.012280241383698017,
+    "mae": 0.01225710576788183,
     "directional_accuracy": 0.5308056872037915
   },
   "ridge": {
-    "mae": 0.007255913901426246,
+    "mae": 0.007255912127959707,
     "directional_accuracy": 0.4470774091627172
   },
   "ensemble": {
-    "mae": 0.007993697373087801,
-    "directional_accuracy": 0.49447077409162715
+    "mae": 0.007978066493856597,
+    "directional_accuracy": 0.4960505529225908
   }
 }
