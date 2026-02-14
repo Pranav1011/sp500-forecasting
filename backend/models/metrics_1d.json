@@ -1,18 +1,18 @@
 {
   "xgboost": {
-    "mae": 0.010353197334853273,
-    "directional_accuracy": 0.47648902821316613
+    "mae": 0.010558760885830363,
+    "directional_accuracy": 0.4670846394984326
   },
   "rf": {
-    "mae": 0.012873003076732687,
+    "mae": 0.012859819665545471,
     "directional_accuracy": 0.5188087774294671
   },
   "ridge": {
-    "mae": 0.006762676169692613,
-    "directional_accuracy": 0.48119122257053293
+    "mae": 0.006752802601086841,
+    "directional_accuracy": 0.4843260188087774
   },
   "ensemble": {
-    "mae": 0.008023255740869551,
-    "directional_accuracy": 0.5141065830721003
+    "mae": 0.007982469319763657,
+    "directional_accuracy": 0.5062695924764891
   }
 }
