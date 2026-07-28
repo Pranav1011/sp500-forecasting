@@ -1,14 +1,14 @@
 {
   "horizon": 20,
   "test_start": "2023-05-03",
-  "test_end": "2026-06-24",
-  "total_return": -0.9984483082784782,
-  "benchmark_return": 135822.7080082176,
-  "sharpe_ratio": -3.0399598252698823,
-  "sortino_ratio": -5.009545439855655,
-  "max_drawdown": -0.9999802137094655,
-  "volatility": 0.6205313568367015,
-  "win_rate": 0.3788265306122449,
-  "num_trades": 785,
-  "directional_accuracy": 0.37944162436548223
+  "test_end": "2026-06-25",
+  "total_return": -0.9984555522705002,
+  "benchmark_return": 136850.77792059304,
+  "sharpe_ratio": -3.0403476628076977,
+  "sortino_ratio": -5.006946153365048,
+  "max_drawdown": -0.9999803634748509,
+  "volatility": 0.6201603576600649,
+  "win_rate": 0.378343949044586,
+  "num_trades": 786,
+  "directional_accuracy": 0.38149556400506973
 }
